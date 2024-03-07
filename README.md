@@ -1,12 +1,12 @@
-# Sample Android App
+# AnalyticsEventGenerator Sample - Android App
 
 To build locally execute: `./gradlew assemble`.
 
-This will use the SharedAnalyticsLibrary artifact published to Github Packages.
+This will use the [AnalyticsEventGeneratorSample-SharedLibrary](https://github.com/zawadz88/AnalyticsEventGeneratorSample-SharedLibrary) artifact published to Github Packages.
 
-If you wish to work on SharedAnalyticsLibrary and test locally you need to:
+If you wish to work on SharedLibrary and test locally you need to:
 
 - add `mavenLocal()` repository in `SampleAndroidApp/settings.gradle.kts`
-- make the changes in SharedAnalyticsLibrary
-- in SharedAnalyticsLibrary run `./gradlew assemble` and `./gradlew publishToMavenLocal`
-- in SampleAndroidApp execute `./gradlew clean assemble --no-build-cache --refresh-dependencies`
+- make the changes in AnalyticsEventGeneratorSample-SharedLibrary
+- in AnalyticsEventGeneratorSample-SharedLibrary run `./gradlew assemble` and `./gradlew publishToMavenLocal`
+- in AnalyticsEventGeneratorSample-AndroidApp execute `./gradlew clean assemble --no-build-cache --refresh-dependencies`

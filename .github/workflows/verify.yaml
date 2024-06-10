@@ -1,6 +1,11 @@
 name: Verify
 
-on: [ pull_request ]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
 env:
   JAVA_VERSION: '17'
 

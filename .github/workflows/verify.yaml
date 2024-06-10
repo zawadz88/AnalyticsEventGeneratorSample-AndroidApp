@@ -1,0 +1,44 @@
+name: Verify
+
+on: [ pull_request ]
+env:
+  JAVA_VERSION: '17'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: |
+            8
+            ${{ env.JAVA_VERSION }}
+          distribution: "zulu"
+      - name: Cache build tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v4-${{ hashFiles('*.gradle.kts') }}
+      - name: Set Github credentials
+        run: |
+          cat << EOF >> gradle.properties
+          eventGeneratorUsername=$GITHUB_USERNAME
+          eventGeneratorPassword=$GITHUB_TOKEN
+          sharedLibraryUsername=$GITHUB_USERNAME
+          sharedLibraryPassword=$GITHUB_TOKEN
+          EOF
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB }}
+          GITHUB_USERNAME: ${{ github.actor }}      
+      - name: Build Plugin & Runtime
+        run: |
+          ./gradlew -version --no-daemon
+          ./gradlew check --no-daemon --stacktrace
+        env:
+          GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=512m"

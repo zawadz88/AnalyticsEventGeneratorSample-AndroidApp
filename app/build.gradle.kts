@@ -46,7 +46,7 @@ android {
 }
 
 dependencies {
-    implementation("dev.zawadzki.sharedanalyticslibrary:shared-analytics-library-android:1.0.9")
+    implementation("dev.zawadzki.sharedanalyticslibrary:shared-analytics-library-android:1.0.11")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
